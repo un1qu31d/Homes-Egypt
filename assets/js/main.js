@@ -1,3 +1,4 @@
+let screenWidth = document.querySelector('html').offsetHeight;
 let headerHeight = document.querySelector('#section--header').offsetHeight;
 const mainBackground = document.querySelector('#main-background__images');
 const mainBackgroundImages = [...mainBackground.querySelectorAll('img')].map(image => ({src: image.getAttribute('src')}));
@@ -25,10 +26,13 @@ window.addEventListener('scroll', ev => {
   }
 });
 window.addEventListener('resize', ev => {
-  headerHeight = document.querySelector('#section--header').offsetHeight
-  $(mainBackground).vegas('destroy');
-  mainBackground.style.height = '';
-  $(mainBackground).vegas(vegasSettings);
+  if (document.querySelector('html').offsetHeight != screenWidth) {
+    screenWidth = document.querySelector('html').offsetHeight;
+    headerHeight = document.querySelector('#section--header').offsetHeight
+    $(mainBackground).vegas('destroy');
+    mainBackground.style.height = '';
+    $(mainBackground).vegas(vegasSettings);
+  }
 });
 document.querySelector('#header__switch').addEventListener('click', ev => {
   document.querySelector('.component--header').classList.toggle('status--active-menu');
